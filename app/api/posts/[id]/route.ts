@@ -1,10 +1,21 @@
 import { NextResponse } from 'next/server'
 import { headers, cookies } from 'next/headers'
+import { posts } from '@/data/posts'
 //import { redirect } from 'next/navigation'
 
 
+export async function GET(req: Request, { params }: { params: { id: string } }) { //http://localhost:3000/api/posts/4
+    const id = params.id
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) { //http://localhost:3000/api/posts/4
+    const currentPost = posts.find(post =>
+        post.id.toString() === id
+    )
+
+    return NextResponse.json(currentPost)
+}
+
+
+/*export async function DELETE(req: Request, { params }: { params: { id: string } }) { //http://localhost:3000/api/posts/4
     const id = params.id
 
     const headerList = headers()
@@ -19,4 +30,4 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     //redirect('/blog')
 
     return NextResponse.json({ id, type, coo1 })
-}
+}*/
